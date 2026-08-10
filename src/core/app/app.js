@@ -32,10 +32,18 @@ class App {
                 }
             }
         );
-        this.#projectCollection = value;
+        this.#projectCollection = new Map(value);
     }
 
     addProject(project) {
+        const projectIds = Array.from(this.projectCollection.keys());
+        if (projectIds.includes(project.id)) {
+            throw new Error(
+                `Invalid project: ${project}.` +
+                ` Collection already contains a project with id: ${project.id}.`
+            );
+        }
+
         const tmpProjectCollection = this.projectCollection;
         tmpProjectCollection.set(project.id, project);
         this.projectCollection = tmpProjectCollection;
@@ -46,6 +54,13 @@ class App {
             throw new Error(
                 `Invalid Project's Id: ${toRemoveProjectId}.` +
                 ` Default Project can not be removed.`
+            );
+        }
+        const projectIds = Array.from(this.projectCollection.keys()).filter((projectId) => {return projectId != this.#defaultProjectId});
+        if (!(projectIds.includes(toRemoveProjectId))) {
+            throw new Error(
+                `Unknown project's id: ${toRemoveProjectId}.` +
+                ` Possible project's ids are: ${projectIds}.`
             );
         }
 

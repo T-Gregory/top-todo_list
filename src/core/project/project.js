@@ -8,7 +8,7 @@ class Project {
     #titleLengthBottomBoundary = 3;
     #titleLengthTopBoundary = 25;
 
-    constructor(title, todoCollection=[]) {
+    constructor(title, todoCollection=new Map()) {
         this.#id = crypto.randomUUID();
 
         this.title = title;
@@ -38,10 +38,10 @@ class Project {
     get todoCollection() {return this.#todoCollection;}
 
     set todoCollection(value) {
-        if (!(value instanceof Array)) {
+        if (!(value instanceof Map)) {
             throw new Error(
                 `Invalid todoCollection: ${value}.` +
-                ` TodoCollection has to be of type Array, got ${typeof value}.`
+                ` TodoCollection has to be of type Map, got ${typeof value}.`
             );
         }
         value.forEach((item) => {
@@ -53,31 +53,35 @@ class Project {
                 }
             }
         );
-        this.#todoCollection = value;
+        this.#todoCollection = new Map(value);
     }
 
     addTodo(todo) {
-        if (!(todo instanceof Todo)) {
+        const todoIds = Array.from(this.todoCollection.keys());
+        if (todoIds.includes(todo.id)) {
             throw new Error(
-                `Invalid todo: ${todo}.` +
-                ` Todo has to be of type Todo, got ${typeof todo}.`
+                `Invalid Todo: ${todo}.` +
+                ` Collection already contains a todo with id: ${todo.id}.`
             );
         }
 
         const tmpTodoCollection = this.todoCollection;
-        tmpTodoCollection.push(todo);
+        tmpTodoCollection.set(todo.id, todo);
         this.todoCollection = tmpTodoCollection;
     }
 
     removeTodo(toRemoveTodoId) {
-        const todoIds = this.todoCollection.map((todo) => {return todo.id});
+        const todoIds = Array.from(this.todoCollection.keys());
         if (!(todoIds.includes(toRemoveTodoId))) {
             throw new Error(
                 `Unknown Todo's Id: ${toRemoveTodoId}.` +
                 ` Possible Todo's Ids are: ${todoIds}.`
             );
         }
-        this.todoCollection = this.todoCollection.filter((todo) => todo.id != toRemoveTodoId);
+
+        const tmpTodoCollection = this.todoCollection;
+        tmpTodoCollection.delete[toRemoveTodoId];
+        this.todoCollection = tmpTodoCollection;
     }
 }
 

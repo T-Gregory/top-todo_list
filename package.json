@@ -20,6 +20,7 @@
   },
   "imports": {
     "#src/*": "./src/*",
-    "#core/*": "./src/core/*"
+    "#core/*": "./src/core/*",
+    "#display/*": "./src/display/*"
   }
 }

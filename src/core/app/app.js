@@ -65,7 +65,7 @@ class App {
         }
 
         const tmpProjectCollection = this.projectCollection;
-        tmpProjectCollection.delete[toRemoveProjectId];
+        tmpProjectCollection.delete(toRemoveProjectId);
         this.projectCollection = tmpProjectCollection;
     }
 }

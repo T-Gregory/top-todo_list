@@ -1,0 +1,5 @@
+.input-element {
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    gap: 10px;
+}

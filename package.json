@@ -21,6 +21,7 @@
   "imports": {
     "#src/*": "./src/*",
     "#core/*": "./src/core/*",
-    "#display/*": "./src/display/*"
+    "#display/*": "./src/display/*",
+    "#elements/*": "./src/display/elements/*"
   }
 }

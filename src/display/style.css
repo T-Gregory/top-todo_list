@@ -48,3 +48,18 @@ body {
 .todo-container {
     padding: 5px;
 }
+
+.project-summary-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+
+.project-action-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+

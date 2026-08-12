@@ -2,6 +2,10 @@ import { Expandable } from "#display/elements/expandable.js"
 import { createProjectEditModal } from "#display/modals/projectEditModal.js"
 import { triggerStateChangeEvent } from "#display/event.js";
 
+import "./style.css";
+import binSvg from "./trash-can.svg?raw";
+import pencilSvg from "./pencil.svg?raw";
+
 
 function getProjectEditModal(project) {
     const projectEditModalPostSubmit = () => { triggerStateChangeEvent(); }
@@ -14,7 +18,10 @@ function getProjectEditButton(project, projectEditModal) {
     const PROJECT_EDIT_BUTTON_CLASSNAME = "project-edit-button";
     let projectEditButton = document.createElement("button");
     projectEditButton.classList.add(PROJECT_EDIT_BUTTON_CLASSNAME);
-    projectEditButton.textContent = "Edit";
+
+    const projectEditButtonLogo = document.createElement("div");
+    projectEditButtonLogo.innerHTML = pencilSvg;
+    projectEditButton.appendChild(projectEditButtonLogo);
 
     projectEditButton.addEventListener("click", (event) => {
         projectEditModal.showModal();
@@ -28,7 +35,10 @@ function getProjectDeleteButton(project, app) {
     const PROJECT_DELETE_BUTTON_CLASSNAME = "project-delete-button";
     let projectDeleteButton = document.createElement("button");
     projectDeleteButton.classList.add(PROJECT_DELETE_BUTTON_CLASSNAME);
-    projectDeleteButton.textContent = "Delete";
+
+    const projectDeleteButtonLogo = document.createElement("div");
+    projectDeleteButtonLogo.innerHTML = binSvg;
+    projectDeleteButton.appendChild(projectDeleteButtonLogo);
 
     projectDeleteButton.addEventListener("click", (event) => {
         app.removeProject(project.id);

@@ -62,17 +62,18 @@ function getProjectSummaryElement(project, app) {
     let projectActionContainer = document.createElement("div");
     projectActionContainer.classList.add(PROJECT_ACTION_CONTAINER_CLASSNAME);
 
+    if (project.isAlterable === true) {
+        let projectEditModal = getProjectEditModal(project);
+        projectSummary.appendChild(projectEditModal);
+        let projectEditButton = getProjectEditButton(project, projectEditModal);
+        projectEditButton.classList.add(PROJECT_ACTION_BUTTON_CLASSNAME);
 
-    let projectEditModal = getProjectEditModal(project);
-    projectSummary.appendChild(projectEditModal);
-    let projectEditButton = getProjectEditButton(project, projectEditModal);
-    projectEditButton.classList.add(PROJECT_ACTION_BUTTON_CLASSNAME);
+        let projectDeleteButton = getProjectDeleteButton(project, app);
+        projectDeleteButton.classList.add(PROJECT_ACTION_BUTTON_CLASSNAME);
 
-    let projectDeleteButton = getProjectDeleteButton(project, app);
-    projectDeleteButton.classList.add(PROJECT_ACTION_BUTTON_CLASSNAME);
-
-    projectActionContainer.appendChild(projectEditButton);
-    projectActionContainer.appendChild(projectDeleteButton);
+        projectActionContainer.appendChild(projectEditButton);
+        projectActionContainer.appendChild(projectDeleteButton);
+    }
 
     projectSummary.appendChild(projectTitleContainer);
     projectSummary.appendChild(projectActionContainer);

@@ -9,7 +9,7 @@ class App {
 
     constructor() {
         this.projectCollection = new Map();
-        const defaultProject = new Project(this.#_defaultProjectTitle);
+        const defaultProject = new Project(this.#_defaultProjectTitle, new Map(), false);
         this.addProject(defaultProject);
         this.#defaultProjectId = defaultProject.id;
     }

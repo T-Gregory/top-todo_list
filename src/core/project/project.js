@@ -4,15 +4,17 @@ class Project {
     #id;
     #title;
     #todoCollection;
+    #isAlterable;
 
     #titleLengthBottomBoundary = 3;
     #titleLengthTopBoundary = 25;
 
-    constructor(title, todoCollection=new Map()) {
+    constructor(title, todoCollection=new Map(), isAlterable=true) {
         this.#id = crypto.randomUUID();
 
         this.title = title;
         this.todoCollection = todoCollection;
+        this.#isAlterable = isAlterable;
     }
 
     get id() {return this.#id;}
@@ -32,8 +34,16 @@ class Project {
                 ` Title has to be between ${this.#titleLengthBottomBoundary} and ${this.#titleLengthTopBoundary} characters long.`
             );
         }
+        if ((this.title !== undefined) && !(this.isAlterable)) {
+            throw new Error(
+                `Unable to change title for project: ${this}.` +
+                ` Project can not be edited.`
+            );
+        }
         this.#title = value;
     }
+
+    get isAlterable() {return this.#isAlterable;}
 
     get todoCollection() {return this.#todoCollection;}
 

@@ -1,5 +1,5 @@
 import { getProjectElement } from "#display/elements/projectElement/projectElement.js"
-
+import { getProjectCreationButton } from "#display/elements/projectCreationButton/projectCreationButton.js";
 
 import "./style.css"
 
@@ -23,7 +23,10 @@ class DisplayControler {
             projectContainerList.appendChild(projectContainerIt);
         });
 
+        const projectCreationButton = getProjectCreationButton(app);
+
         contentContainer.appendChild(projectContainerList);
+        contentContainer.appendChild(projectCreationButton);
     }
 
     clearContent() {

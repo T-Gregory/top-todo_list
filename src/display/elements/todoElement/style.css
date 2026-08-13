@@ -1,0 +1,17 @@
+.todo-container {
+    display: grid;
+    grid-auto-flow: row;
+}
+
+.todo-title-container {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.todo-data-container {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.774);
+
+    display: grid;
+    grid-auto-flow: column;
+}

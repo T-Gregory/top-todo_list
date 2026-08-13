@@ -1,6 +1,7 @@
 import { Expandable } from "#display/elements/expandable.js"
 import { createProjectEditModal } from "#display/modals/projectEditModal.js"
 import { triggerStateChangeEvent } from "#display/event.js";
+import { getTodoElement } from "#display/elements/todoElement/todoElement.js";
 
 import "./style.css";
 import binSvg from "./trash-can.svg?raw";
@@ -82,7 +83,6 @@ function getProjectSummaryElement(project, app) {
 }
 
 function getProjectInfoElement(project) {
-    const TODO_CONTAINER_CLASSNAME = "todo-container";
     const PROJECT_INFO_CONTAINER_CLASSNAME = "project-info-container";
 
     const projectInfoContainer = document.createElement("div");
@@ -90,10 +90,7 @@ function getProjectInfoElement(project) {
 
     if (project.todoCollection.size > 0) {
         project.todoCollection.forEach(todo => {
-            let todoContainerIt = document.createElement("div");
-            todoContainerIt.classList.add(TODO_CONTAINER_CLASSNAME);
-            todoContainerIt.textContent = todo.title;
-
+            let todoContainerIt = getTodoElement(todo);
             projectInfoContainer.appendChild(todoContainerIt);
         })
     } else {

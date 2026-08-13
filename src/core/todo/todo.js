@@ -11,7 +11,7 @@ class Todo {
     #priorityBottomBoundary = 1;
     #priorityLengthTopBoundary = 3;
     
-    constructor(title, description=null, dueDate=null, priority=null) {
+    constructor(title, description=null, dueDate=null, priority=3) {
         this.#id = crypto.randomUUID();
 
         this.title = title;

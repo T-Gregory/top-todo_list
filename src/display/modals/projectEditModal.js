@@ -1,46 +1,46 @@
 import { createFormInputItem } from "#elements/formInputItem/formInputItem.js"
 
 
-const PROJECT_NAME_EDIT_FIELD_ID_NAME = "project-name-edit-field"
+const PROJECT_NAME_INPUT_ID = "project-name-edit-field";
 
 function createProjectEditModal(project, postSubmitCallback) {
-    const projectEditModal = document.createElement("dialog");
-    const projectEditForm = document.createElement("form");
-    projectEditForm.action = "";
-    projectEditForm.method = "";
+    const editModal = document.createElement("dialog");
+    const editForm = document.createElement("form");
+    editForm.action = "";
+    editForm.method = "";
 
-    const projectNameEditField = document.createElement("input");
-    projectNameEditField.type = "text";
-    projectNameEditField.id = PROJECT_NAME_EDIT_FIELD_ID_NAME;
-    projectNameEditField.minLength = 3;
-    projectNameEditField.maxLength = 25;
+    const nameField = document.createElement("input");
+    nameField.type = "text";
+    nameField.id = PROJECT_NAME_INPUT_ID;
+    nameField.minLength = 3;
+    nameField.maxLength = 25;
 
-    const projectNameEditFieldLabel = document.createElement("label");
-    projectNameEditFieldLabel.setAttribute("for", PROJECT_NAME_EDIT_FIELD_ID_NAME);
-    projectNameEditFieldLabel.textContent = "New project's name:";
+    const nameFieldLabel = document.createElement("label");
+    nameFieldLabel.setAttribute("for", PROJECT_NAME_INPUT_ID);
+    nameFieldLabel.textContent = "New project's name:";
 
-    let projectNameInputITem = createFormInputItem(projectNameEditFieldLabel, projectNameEditField);
+    let nameInputItem = createFormInputItem(nameFieldLabel, nameField);
 
     let projectEditSubmitButton = document.createElement("button");
     projectEditSubmitButton.textContent = "Submit";
     projectEditSubmitButton.addEventListener("click", (event) => {
         event.preventDefault();
         try {
-            project.title = projectNameEditField.value;
+            project.title = nameField.value;
         } catch (error) {
             alert(error);
         }
-        projectEditForm.reset();
-        projectEditModal.close();
+        editForm.reset();
+        editModal.close();
 
         postSubmitCallback();
     });
 
-    projectEditForm.appendChild(projectNameInputITem);
-    projectEditForm.appendChild(projectEditSubmitButton);
-    projectEditModal.appendChild(projectEditForm);
+    editForm.appendChild(nameInputItem);
+    editForm.appendChild(projectEditSubmitButton);
+    editModal.appendChild(editForm);
 
-    return projectEditModal;
+    return editModal;
 }
 
 

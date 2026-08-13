@@ -23,5 +23,8 @@
     "#core/*": "./src/core/*",
     "#display/*": "./src/display/*",
     "#elements/*": "./src/display/elements/*"
+  },
+  "dependencies": {
+    "date-fns": "^4.4.0"
   }
 }

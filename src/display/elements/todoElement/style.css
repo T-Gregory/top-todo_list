@@ -1,17 +1,26 @@
-.todo-container {
+.todo-summary-container {
     display: grid;
-    grid-auto-flow: row;
+    grid-template-columns: min-content max-content max-content;
+    align-items: center;
+    gap: 1%;
 }
 
 .todo-title-container {
     font-weight: bold;
     font-size: 1.1rem;
+    text-align: left;
 }
 
-.todo-data-container {
-    font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.774);
+.todo-priority-container {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
 
     display: grid;
-    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-container:not(:first-child) {
+    border-top: 1px solid black;
 }

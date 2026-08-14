@@ -1,6 +1,8 @@
 import { format } from "date-fns";
 
 import { Expandable } from "#display/elements/expandable.js"
+import { triggerStateChangeEvent } from "#display/event.js";
+import { createTodoEditModal } from "#display/modals/todoEditModal.js";
 
 import "./style.css";
 import checkmarkSvg from "./check-mark.svg?raw";
@@ -27,6 +29,13 @@ const PRIORITY_TO_COLOR_MAP = {
     3: "green"
 };
 
+function getTodoEditModal(todo) {
+    const editModalPostSubmit = () => { triggerStateChangeEvent(); }
+    const todoEditModal = createTodoEditModal(todo, editModalPostSubmit);
+
+    return todoEditModal;
+}
+
 function getTodoSummaryDataElement(todo) {
     const todoSummaryDataElement = document.createElement("div");
     todoSummaryDataElement.classList.add(TODO_SUMMARY_DATA_CONTAINER_CLASSNAME);
@@ -52,35 +61,49 @@ function getTodoSummaryDataElement(todo) {
     return todoSummaryDataElement;
 }
 
-function getTodoDoneButton(todo) {
+function getTodoDoneButton(project, todo) {
     const todoDoneButton = document.createElement("button");
     todoDoneButton.classList.add(TODO_DONE_BUTTON_CLASSNAME);
 
-    const projectDoneButtonLogo = document.createElement("div");
-    projectDoneButtonLogo.innerHTML = checkmarkSvg;
-    todoDoneButton.appendChild(projectDoneButtonLogo);
+    const todoDoneButtonLogo = document.createElement("div");
+    todoDoneButtonLogo.innerHTML = checkmarkSvg;
+
+    todoDoneButton.addEventListener("click", (event) => {
+        project.removeTodo(todo.id);
+        triggerStateChangeEvent();
+        event.stopPropagation();
+    });
+    todoDoneButton.appendChild(todoDoneButtonLogo);
 
     return todoDoneButton;
 }
 
-function getTodoEditButton(todo) {
+function getTodoEditButton(todo, todoEditModal) {
     const todoEditButton = document.createElement("button");
     todoEditButton.classList.add(TODO_EDIT_BUTTON_CLASSNAME);
 
-    const projectEditButtonLogo = document.createElement("div");
-    projectEditButtonLogo.innerHTML = pencilSvg;
-    todoEditButton.appendChild(projectEditButtonLogo);
+    const todoEditButtonLogo = document.createElement("div");
+    todoEditButtonLogo.innerHTML = pencilSvg;
+    todoEditButton.appendChild(todoEditButtonLogo);
+
+    todoEditButton.addEventListener("click", (event) => {
+        todoEditModal.showModal(); 
+        event.stopPropagation();
+    });
 
     return todoEditButton;
 }
 
-function getTodoSummaryActionElement(todo) {
+function getTodoSummaryActionElement(project, todo) {
     const todoSummaryActionElement = document.createElement("div");
     todoSummaryActionElement.classList.add(TODO_SUMMARY_ACTION_CONTAINER_CLASSNAME);
 
-    const todoDoneButton = getTodoDoneButton(todo);
+    const todoEditModal = getTodoEditModal(todo);
+    todoSummaryActionElement.appendChild(todoEditModal)
+
+    const todoDoneButton = getTodoDoneButton(project, todo);
     todoDoneButton.classList.add(TODO_ACTION_BUTTON_CLASSNAME);
-    const todoEditButton = getTodoEditButton(todo);
+    const todoEditButton = getTodoEditButton(todo, todoEditModal);
     todoEditButton.classList.add(TODO_ACTION_BUTTON_CLASSNAME);
 
     todoSummaryActionElement.appendChild(todoDoneButton);
@@ -88,12 +111,12 @@ function getTodoSummaryActionElement(todo) {
     return todoSummaryActionElement;
 }
 
-function getTodoSummaryElement(todo) {
+function getTodoSummaryElement(project, todo) {
     const todoSummaryElement = document.createElement("div");
     todoSummaryElement.classList.add(TODO_SUMMARY_CONTAINER_CLASSNAME);
 
     const todoSummaryDataElement = getTodoSummaryDataElement(todo);
-    const todoSummaryActionElement = getTodoSummaryActionElement(todo);
+    const todoSummaryActionElement = getTodoSummaryActionElement(project, todo);
 
     todoSummaryElement.appendChild(todoSummaryDataElement);
     todoSummaryElement.appendChild(todoSummaryActionElement);
@@ -110,9 +133,9 @@ function getTodoInfoElement(todo) {
     return todoDescriptionContainer;
 }
 
-function getTodoElement(todo) {
+function getTodoElement(project, todo) {
     let todoElement = new Expandable(
-        getTodoSummaryElement(todo),
+        getTodoSummaryElement(project, todo),
         false,
         getTodoInfoElement(todo)
     ).getElement();

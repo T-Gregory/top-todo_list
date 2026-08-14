@@ -42,6 +42,7 @@ function getProjectDeleteButton(project, app) {
     projectDeleteButton.appendChild(projectDeleteButtonLogo);
 
     projectDeleteButton.addEventListener("click", (event) => {
+        event.stopPropagation();
         app.removeProject(project.id);
         triggerStateChangeEvent();
     });
@@ -90,7 +91,7 @@ function getProjectInfoElement(project) {
 
     if (project.todoCollection.size > 0) {
         project.todoCollection.forEach(todo => {
-            let todoContainerIt = getTodoElement(todo);
+            let todoContainerIt = getTodoElement(project, todo);
             projectInfoContainer.appendChild(todoContainerIt);
         })
     } else {

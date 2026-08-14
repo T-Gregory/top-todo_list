@@ -21,19 +21,3 @@ body {
     width: 95vw;
     border: solid 1px grey;
 }
-
-.project-action-button {
-    height: 40px;
-    width: 40px;
-    fill: white;
-    border: none;
-    border-radius: 4px;
-}
-
-.project-delete-button {
-    background-color: crimson;
-}
-
-.project-edit-button {
-    background-color: royalblue;
-}

@@ -37,3 +37,19 @@
     justify-content: end;
     gap: 10px;
 }
+
+.project-action-button {
+    height: 40px;
+    width: 40px;
+    fill: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.project-delete-button {
+    background-color: crimson;
+}
+
+.project-edit-button {
+    background-color: royalblue;
+}

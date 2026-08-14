@@ -90,7 +90,7 @@ class Project {
         }
 
         const tmpTodoCollection = this.todoCollection;
-        tmpTodoCollection.delete[toRemoveTodoId];
+        tmpTodoCollection.delete(toRemoveTodoId);
         this.todoCollection = tmpTodoCollection;
     }
 }

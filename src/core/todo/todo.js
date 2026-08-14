@@ -7,7 +7,7 @@ class Todo {
 
     #titleLengthBottomBoundary = 3;
     #titleLengthTopBoundary = 25;
-    #descriptionLengthTopBoundary = 100;
+    #descriptionLengthTopBoundary = 1000;
     #priorityBottomBoundary = 1;
     #priorityLengthTopBoundary = 3;
     

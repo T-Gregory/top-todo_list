@@ -12,8 +12,25 @@ function initData() {
     let customProject = new Project("Custom project");
     let customTodo = new Todo("Custom Todo");
     customProject.addTodo(customTodo);
-    let customTodo2 = new Todo("Custom Todo 2");
+    let customTodo2 = new Todo(
+        "Custom Todo 2",
+        "Wikipédia est un projet d’encyclopédie collective en ligne, universelle."
+   );
     customProject.addTodo(customTodo2);
+    let customTodo3 = new Todo(
+        "Custom Todo 2",
+        "Wikipédia est un projet d’encyclopédie collective en ligne, universelle.",
+        new Date(),
+        1
+   );
+    customProject.addTodo(customTodo3);
+    let customTodo4 = new Todo(
+        "Custom Todo 2",
+        "Wikipédia est un projet d’encyclopédie collective en ligne, universelle.",
+        new Date(),
+        2
+   );
+    customProject.addTodo(customTodo4);
     app.addProject(customProject);
 }
 

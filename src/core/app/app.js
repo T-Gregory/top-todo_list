@@ -9,6 +9,15 @@ class App {
 
     constructor() {
         this.projectCollection = new Map();
+    }
+
+    initDefaultProject() {
+        if (!(this.#defaultProjectId)) {
+            throw new Error(
+                `Unable to add default project to app. ` + 
+                ` App ${this} already have a default project.`
+            );
+        }
         const defaultProject = new Project(this.#_defaultProjectTitle, new Map(), false);
         this.addProject(defaultProject);
         this.#defaultProjectId = defaultProject.id;
@@ -67,6 +76,27 @@ class App {
         const tmpProjectCollection = this.projectCollection;
         tmpProjectCollection.delete(toRemoveProjectId);
         this.projectCollection = tmpProjectCollection;
+    }
+
+    toDataObject() {
+        let projects = Array.from(this.projectCollection.values().map(
+            (project) => {return project.toDataObject();}
+        ));
+        return {
+            "defaultProjectId": this.#defaultProjectId,
+            "projectCollection": projects
+        };
+    }
+
+    static fromDataObject(dataObject) {
+        const app = new this();
+        dataObject.projectCollection.forEach((projectDataObject) => {
+            const project = Project.fromDataObject(projectDataObject);
+            app.addProject(project);
+        });
+        app.#defaultProjectId = dataObject.defaultProjectId;
+
+        return app;
     }
 }
 

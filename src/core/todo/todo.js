@@ -93,6 +93,26 @@ class Todo {
         }
         this.#priority = value;
     }
+
+    toDataObject() {
+        return {
+            "id": this.id,
+            "title": this.title,
+            "description": this.description,
+            "priority": this.priority,
+            "dueDate": this.dueDate,
+        };
+    }
+
+
+    static fromDataObject(dataObject) {
+        return new this(
+            dataObject.title,
+            dataObject.description,
+            new Date(dataObject.dueDate),
+            dataObject.priority
+        );
+    }
 }
 
 export { Todo };

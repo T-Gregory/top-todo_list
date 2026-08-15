@@ -93,6 +93,29 @@ class Project {
         tmpTodoCollection.delete(toRemoveTodoId);
         this.todoCollection = tmpTodoCollection;
     }
+
+    toDataObject() {
+        let todos = Array.from(this.todoCollection.values().map(
+            (todo) => {return todo.toDataObject();}
+        ));
+        return {
+            "id": this.id,
+            "title": this.title,
+            "isAlterable": this.isAlterable,
+            "todoCollection": todos
+        };
+    }
+
+    static fromDataObject(dataObject) {
+        return new this(
+            dataObject.title,
+            dataObject.todoCollection.reduce(
+                (map, todoDataObject) => { return map.set(todoDataObject.id, Todo.fromDataObject(todoDataObject)); },
+                new Map()
+            ),
+            dataObject.isAlterable
+        );
+    }
 }
 
 export { Project };

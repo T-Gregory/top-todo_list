@@ -106,10 +106,12 @@ class Todo {
 
 
     static fromDataObject(dataObject) {
+        let dueDate = null;
+        if (dataObject.dueDate && dataObject.dueDate !== "") { dueDate = new Date(dataObject.dueDate); }
         return new this(
             dataObject.title,
             dataObject.description,
-            new Date(dataObject.dueDate),
+            dueDate,
             dataObject.priority
         );
     }

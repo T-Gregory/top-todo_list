@@ -1,0 +1,13 @@
+.todo-creation-button-container {
+    justify-self: center;
+    margin: 5px;
+}
+
+.todo-creation-button-container > button {
+    font-size: 1.2rem;
+    background-color:lightgreen;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}

@@ -1,5 +1,6 @@
 import { Expandable } from "#display/elements/expandable.js"
 import { createProjectEditModal } from "#display/modals/projectEditModal.js"
+import { getTodoCreationButton } from "#display/elements/todoCreationButton/todoCreationButton.js";
 import { triggerStateChangeEvent } from "#display/event.js";
 import { getTodoElement } from "#display/elements/todoElement/todoElement.js";
 
@@ -97,6 +98,7 @@ function getProjectInfoElement(project) {
     } else {
         projectInfoContainer.textContent = "Nothing to do for this project."
     }
+    projectInfoContainer.appendChild(getTodoCreationButton(project));
 
     return projectInfoContainer;
 }

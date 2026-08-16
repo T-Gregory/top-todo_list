@@ -12,7 +12,7 @@ class App {
     }
 
     initDefaultProject() {
-        if (!(this.#defaultProjectId)) {
+        if (this.#defaultProjectId) {
             throw new Error(
                 `Unable to add default project to app. ` + 
                 ` App ${this} already have a default project.`
